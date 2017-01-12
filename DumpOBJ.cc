@@ -1155,7 +1155,8 @@ else switch (opcode) {
       DoExpr();
       break;
    case OPENTRY:			/* handle entry opcode */
-      printf("ENTRY    ($F4) | ");
+      p1 = fgeti(input);
+      printf("ENTRY    ($F4) | %02X :", (int)p1);
       PutNumber();
       printf(" : ");
       PutSymbol();
@@ -2014,7 +2015,8 @@ switch(op) {
       count = count + 6;
       break;
    case OPENTRY:			/* handle entry opcode */
-      printf("! ENTRY    ($F4) | ");
+      p1 = fgeti(input);
+      printf("! ENTRY    ($F4) | %02X :", (int)p1);
       PutNumber();
       printf(" : ");
       PutSymbol();
