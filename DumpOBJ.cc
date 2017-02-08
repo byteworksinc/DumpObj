@@ -436,10 +436,15 @@ disp = nam_disp-sizeof(header);		/* skip any extra stuff */
 if (disp)
    for (i = 0; i < disp; ++i) 
       fgetc(f);
-for (i = 0; i < 10; ++i)	        /* read the load segment name */
-   loadname[i] = fgetc(f);
-loadname[10] = (char) 0;
-len = fgetc(f);				/* read the code segment name */
+
+if (version == 0) loadname[0] = 0;
+else {
+  for (i = 0; i < 10; ++i)	        /* read the load segment name */
+    loadname[i] = fgetc(f);
+  loadname[10] = (char) 0;
+}
+len = lablen;
+if (!len) len = fgetc(f);				/* read the code segment name */
 for (i = 0; i < len; ++i)
    segname[i] = fgetc(f);
 segname[len] = (char) 0;
