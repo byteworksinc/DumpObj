@@ -12,7 +12,7 @@ if {Status} != 0
    unset exit
 end
 
-MoreRecent DumpOBJ.a DumpOBJ.cc
+Newer DumpOBJ.a DumpOBJ.cc
 if {Status} != 0
    set exit on
    echo compile +t +e DumpOBJ.cc
