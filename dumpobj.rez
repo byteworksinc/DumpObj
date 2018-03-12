@@ -1,1 +1,22 @@
-/*--------------------------------------------------------------*//*                                                              *//*  Resources for DumpOBJ					*//*                                                              *//*--------------------------------------------------------------*/#include "types.rez"/*- Finder Interface -------------------------------------------*/resource rVersion(1) {   {      2,				/* Major revision */      0,				/* Minor revision */      1,				/* Bug version */      release,				/* Release stage */      0,				/* Non-final release # */      },   verUS,				/* Region code */   "DumpOBJ",				/* Short version number */   "Copyright 1994, Byte Works, Inc."	/* Long version number */   };
+/*--------------------------------------------------------------*/
+/*                                                              */
+/*  Resources for DumpOBJ					*/
+/*                                                              */
+/*--------------------------------------------------------------*/
+
+#include "types.rez"
+
+/*- Finder Interface -------------------------------------------*/
+
+resource rVersion(1) {
+   {
+      2,				/* Major revision */
+      0,				/* Minor revision */
+      1,				/* Bug version */
+      release,				/* Release stage */
+      0,				/* Non-final release # */
+      },
+   verUS,				/* Region code */
+   "DumpOBJ",				/* Short version number */
+   "Copyright 1994, Byte Works, Inc."	/* Long version number */
+   };
