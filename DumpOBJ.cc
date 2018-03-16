@@ -1570,7 +1570,7 @@ void WriteT (long *root)
 if (root)           
    switch(root[1]) {
       case 3:				/* handle label value */
-         printf((char *) (root+5));
+         fputs((char *) (root+5), stdout);
          break;
       case 2:				/* handle number value */
          if (root[0] == 135)  		/* split on case of relative ofset */
@@ -1737,7 +1737,7 @@ void PutLSymbol (void)
 int i;
 
 ReadName(symbol,lablen,input);
-printf(symbol);
+fputs(symbol, stdout);
 for (i=act_lablen; i<8; i++)		/* fill out with spaces */
    putchar(' ');
 putchar(' ');
@@ -2324,7 +2324,7 @@ while (NextSeg()) {
          }
       PutStreg();			/* write the registar status */
       PutCTPC();
-      printf(segname);			/* print the segment name */
+      fputs(segname, stdout);			/* print the segment name */
       for (i=strlen(segname); i<8; i++) /* fill out with spaces */
          putchar(' ');
       if (kind & 1)			/* print out segment type */
