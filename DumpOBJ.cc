@@ -2349,7 +2349,7 @@ while (NextSeg()) {
       while (count <= mark) {
          PutCTPC();
          GetOpCode();
-         if (checkf && ((pc > codelen) || ((! opcode) && (pc == codelen))))
+         if ((checkf || header) && ((pc > codelen) || ((! opcode) && (pc == codelen))))
             break;
          if (((kind & 0x001F) == 1) && checkf
             && (opcode < OPALIGN) && (opcode != 0))
