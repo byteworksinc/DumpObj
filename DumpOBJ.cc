@@ -18,6 +18,13 @@
 *
 *  1. Added resource fork.
 *
+****************************************************************
+*
+*  Version 2.0.2, June 96
+*  Mike Westerfield
+*
+*  1. Fixed hexadecimal dump bug.
+*
 ****************************************************************/
 
 #pragma keep "DumpOBJ"
@@ -605,6 +612,8 @@ switch(kind & 31) {
 *
 ***************************************************************/
 
+/* debug */
+
 BOOLEAN PutHeader (void)
 
 {
@@ -612,7 +621,7 @@ long mark;
 int kind2;
 
 mark = ftell(input);			/* save the file marker */
-if (GetHead(input)) {
+if (GetHead(input)) {                                
    Error(2," ");
    return FALSE;
    }
@@ -2373,9 +2382,9 @@ while (NextSeg()) {
 ***************************************************************/
 
 void DpHex (void)                                                             
-
+																			
 {
-long mark;
+long mark;				/* next segment mark */
 long ch = 0;
 char chline[20];
 int k, i, space;
@@ -2720,7 +2729,7 @@ return GetList(i, argc, argv);
 void Initialize (void)
 
 {
-puts("DumpOBJ 2.0.1\n");	        /* write the header */
+puts("DumpOBJ 2.0.2 B1\n");	        /* write the header */
 
 format =				/* dump in opcode format */
 namc =					/* no names in namelist */
