@@ -502,11 +502,12 @@ return FALSE;
 BOOLEAN NextSeg(void)
 
 {
-if ((format == 2)
-   || ((format == 1) && !header && !checkf)) {
+
+if ((format == 2 || format == 1) && !header && !checkf) {
    numsex = 0;
    return TRUE;
    }
+
 do
    {
    if ((ftype == LIBFL) || (version == 2)) {
@@ -1246,7 +1247,7 @@ while (NextSeg()) {
    if (body) {				/* write out the body */
       if ((! header) && checkf) {
          count = bod_disp;
-         fseek(input, ftell(input) + bod_disp, SEEK_CUR);
+         fseek(input, ftell(input) + bod_disp, SEEK_SET);
          }
       PutOpCodeBody();
       }
@@ -2374,6 +2375,8 @@ while (NextSeg()) {
       }
    if ((! shorth) || body)
       puts("\n");
+
+   if (!checkf && !header) break;
    }
 }
 
@@ -2396,8 +2399,10 @@ int k, i, space;
 while (NextSeg()) {
    count = 0L;
    CheckESC();
-   if (! PutHeader())			/* write out the header */
-      return;
+   if (checkf || header)                /* write out the header */
+      if (! PutHeader())
+         return;
+
    /* if we don't print header and we're not doing file checking then
       dump the entire file and forget about segment scanning */
    if ((! checkf) && (! header)) {	/* get the segment length */
@@ -2413,6 +2418,7 @@ while (NextSeg()) {
          count = bod_disp;
          fseek(input, ftell(input) + bod_disp, SEEK_SET);
          }
+
       while (count <= mark) {
          putchar('\n');
          if (colf) 
@@ -2444,6 +2450,8 @@ while (NextSeg()) {
          }
       }
    if ((! shorth) || body) printf("\n\n");
+
+   if (!checkf && !header) break;
    }
 }
 
