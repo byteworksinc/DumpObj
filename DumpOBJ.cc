@@ -2220,8 +2220,8 @@ void DisSTable (void)
 
 {
 long tlen;
-int p1, p2, p3, p4;			/* temps for computed parms */
-
+int p1, p2;			/* temps for computed parms */
+long subscript;
 if (!constant) {
    GetOpCode();
    if (opcode && (opcode < OPALIGN))
@@ -2281,18 +2281,48 @@ if (constant >= 2) {
             Dis_DC(opcode);
             }
          }
+      subscript = 0;
       if (constant >= 4) {
          PutCTPC();
          p1 = fgetc(input);
          p2 = fgetc(input);
-         p3 = fgetc(input);
-         p4 = fgetc(input);
-         printf("         DC    H'%02X %02X %02X%02X'", p1, p2, p3, p4);
-         pc += 4;
-         count += 4;
+
+         ReadInt(&subscript,2,input,numsex);
+
+         printf("         DC    H'%02X %02X'", p1, p2); /* flag, format */
+         count += 2;
+         pc += 2;
+         PutCTPC();
+         printf("         DC    I2'%d'", (int)subscript); /* subscript */
+
+
+         count += 2;
+         pc += 2;
          constant -= 4;
+
+         // type 13 subscript is not a subscript.
+         if ((p2 & 0x3f) == 13) subscript = 0;
+         else subscript *= 12;
          }
       tlen -= 12;
+      if (constant >= subscript) {
+         long a, b, c;
+
+         while (subscript) {
+            ReadInt(&a, 4, input, numsex);
+            ReadInt(&b, 4, input, numsex);
+            ReadInt(&c, 4, input, numsex);
+
+            PutCTPC();
+            printf("         DC    I4'%d,%d,%d'", (int)a, (int)b, (int)c); /* subscript */
+
+            subscript -= 12;
+            constant -= 12;
+            count += 12;
+            tlen -= 12;
+            pc += 12;
+            }
+         }
       }
    }
 }
