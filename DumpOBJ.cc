@@ -454,6 +454,10 @@ if (version == 2)			/* set the kind field */
    kind = kind2;
 else
    kind = kind1;
+
+if (ftype == 0 && version == 1 && (kind & 0x001F) == 0x08)
+  ftype = LIBFL;
+
 return 0;
 }
 
