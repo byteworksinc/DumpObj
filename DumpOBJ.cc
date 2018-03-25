@@ -492,7 +492,7 @@ BOOLEAN NextSeg(void)
 
 {
 
-if ( (format == 2 || format == 1) && !header && !checkf) {
+if ((format == 2 || format == 1) && !header && !checkf) {
    numsex = 0;
    return TRUE;
    }
