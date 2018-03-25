@@ -1892,6 +1892,7 @@ if (constant) {				/* split on constant or expression */
             pc += 2;
             break;
          case 5:
+         case 8:
             sTable = TRUE;
             break;
          }
