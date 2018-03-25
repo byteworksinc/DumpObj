@@ -2035,6 +2035,34 @@ switch(op) {
       printf(" : ");
       PutSymbol();
       break;
+   case OPSRELOC:     /* handle short reloc opcode */
+      p1 = fgetc(input);
+      p2 = fgetc(input);
+      printf("! cRELOC   ($F5) | %02X : %02X : ", p1, p2);
+      ReadInt(&number,2,input,numsex);
+      printf("%04X : ", (int) number);
+      ReadInt(&number,2,input,numsex);
+      printf("%04X", (int) number);
+      count = count + 6;
+      break;
+   case OPSINTSEG:      /* handle short interseg opcode */
+      p1 = fgetc(input);
+      p2 = fgetc(input);
+      printf("! cINTRSEG ($F6) | %02X : %02X : ", p1, p2);
+      ReadInt(&number,2,input,numsex);
+      printf("%04X : %02X : ", (int) number, (int) fgetc(input));
+      ReadInt(&number,2,input,numsex);
+      printf("%04X", (int) number);
+      count = count + 7;
+      break;
+   case OPSUPER:      /* handle short interseg opcode */
+      printf("! SUPER    ($F7) | ");
+      ReadInt(&number,4,input,numsex);
+      printf("%08lX : %02X", (long) number, (int) fgetc(input));
+      NewLine();
+      count = count + number;
+      PutConst(number-1,1);
+      break;
    default:
       Error(7," ");
       break;
